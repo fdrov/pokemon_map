@@ -88,5 +88,6 @@ local_settings.py
 .env
 venv
 .idea
-db.sqlite3
-media/
+*.sqlite3
+media/*
+/pokemon_entities/test.py
