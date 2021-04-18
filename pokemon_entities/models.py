@@ -2,7 +2,6 @@ from django.db import models
 
 
 class Pokemon(models.Model):
-    '''Покемон'''
     title = models.CharField(max_length=200, verbose_name='Название')
     picture = models.ImageField(verbose_name='Изображение')
     description = models.TextField(blank=True, verbose_name='Описание')
@@ -20,9 +19,8 @@ class Pokemon(models.Model):
 
 
 class PokemonEntity(models.Model):
-    '''Объект покемона'''
     pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE,
-                                verbose_name='Покемон')
+                                verbose_name='Покемон', related_name='entities')
     lat = models.FloatField(verbose_name='Широта')
     lon = models.FloatField(verbose_name='Долгота')
     appeared_at = models.DateTimeField(verbose_name='Появился', blank=True,
