@@ -24,7 +24,7 @@ def show_all_pokemons(request):
     pokemons = Pokemon.objects.all()
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     for pokemon in pokemons:
-        pokemon_entities = pokemon.entities.all()
+        pokemon_entities = pokemon.pokemon_entities.all()
         for pokemon_entity in pokemon_entities:
             add_pokemon(
                 folium_map,
@@ -55,7 +55,7 @@ def show_pokemon(request, pokemon_id):
     if not pokemon:
         return HttpResponseNotFound('<h1>Такой покемон не найден</h1>')
 
-    pokemon_entities = pokemon.entities.all()
+    pokemon_entities = pokemon.pokemon_entities.all()
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     for pokemon_entity in pokemon_entities:
         add_pokemon(
@@ -79,7 +79,7 @@ def show_pokemon(request, pokemon_id):
             'img_url': pokemon.previous_evolution.picture.url
         }
     if pokemon.next_evolution.all():
-        pokemon = pokemon.next_evolution.all()[0]
+        pokemon = pokemon.next_evolution.all()[0]  # TODO maybe .first()
         pokemon_info['next_evolution'] = {
             'title_ru': pokemon.title,
             'pokemon_id': pokemon.id,
