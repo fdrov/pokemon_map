@@ -61,3 +61,5 @@ python3 manage.py migrate
 
 Код написан в учебных целях — это урок в курсе по Python и веб-разработке на
 сайте [Devman](https://dvmn.org).
+
+[TODO](https://gist.github.com/dvmn-tasks/70b5f64a760c5ed2a8594b771e0e8e34)
