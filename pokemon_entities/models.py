@@ -1,6 +1,20 @@
 from django.db import models
 
 
+class PokemonElementType(models.Model):
+    title = models.CharField(max_length=200, verbose_name='Стихия')
+    image = models.ImageField(verbose_name='Эмблема стихии',
+                              null=True, default=None, blank=True)
+    strong_against = models.ManyToManyField('self',
+                                            symmetrical=False,
+                                            default=None,
+                                            null=True,
+                                            blank=True)
+
+    def __str__(self):
+        return self.title
+
+
 class Pokemon(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название')
     picture = models.ImageField(verbose_name='Изображение')
@@ -13,9 +27,10 @@ class Pokemon(models.Model):
                                            on_delete=models.SET_NULL,
                                            related_name='next_evolution',
                                            verbose_name='Предыдущая форма')
+    element_type = models.ManyToManyField(PokemonElementType)
 
     def __str__(self):
-        return f'{self.title}'
+        return self.title
 
 
 class PokemonEntity(models.Model):

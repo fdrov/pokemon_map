@@ -67,7 +67,17 @@ def show_pokemon(request, pokemon_id):
             folium_map,
             pokemon_entity.lat,
             pokemon_entity.lon,
+            pokemon_entity.pokemon.title,
             request.build_absolute_uri(pokemon_entity.pokemon.picture.url)
+        )
+    element_type = []
+    elements = pokemon.element_type.all()
+    for element in elements:
+        element_type.append({
+            'title': element.title,
+            'img': element.image.url,
+            'strong_against': [el for el in element.strong_against.all()]
+        }
         )
     pokemon_info = {
         'pokemon_id': pokemon.id,
@@ -76,6 +86,7 @@ def show_pokemon(request, pokemon_id):
         'description': pokemon.description,
         'title_en': pokemon.title_en,
         'title_jp': pokemon.title_jp,
+        'element_type': element_type
     }
     if pokemon.previous_evolution:
         pokemon_info['previous_evolution'] = {
